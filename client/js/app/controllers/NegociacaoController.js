@@ -16,17 +16,48 @@ class NegociacaoController{
         this._httpService = new HttpService();
         this._negociacaoService = new NegociacaoService(this._httpService);
         this._ordemAtual = '';
+
+
+        ConnectionFactory
+            .getConnection()
+            .then(connection =>{
+                new NegociacaoDao(connection)
+                    .listaTodos()
+                    .then(negociacoes =>{
+                        negociacoes.forEach(negociacao =>{
+                            this._listaNegociacoes.adiciona(negociacao);
+                        });
+
+                        
+                    }).catch(erro=>{
+                        console.log(erro);
+
+                        this._mensagem.texto = 'Não foi possível obter as negociações.'
+                    });
+            });
     }
 
 
     adiciona(event){
 
         event.preventDefault();
-          
-        this._listaNegociacoes.adiciona(this._criaNegociacao());
+          ConnectionFactory
+          .getConnection()
+          .then(connection => {
+              let negociacao = this._criaNegociacao();
 
-        this._mensagem.texto = 'Negociação adicionada com sucesso!';
-        this._limpaFormulario();           
+              new NegociacaoDao(connection)
+                    .adiciona(negociacao)
+                    .then(()=>{
+                        this._listaNegociacoes.adiciona(negociacao);
+                        this._mensagem.texto = 'Negociação adicionada com sucesso!';
+                        this._limpaFormulario();
+                    })
+          }).catch(erro =>{
+            this._mensagem.texto = erro;
+
+          });//fim catch
+                  
 
     }//fim adiciona
 
@@ -39,8 +70,8 @@ class NegociacaoController{
 
     _criaNegociacao(){
         return new Negociacao(DateHelper.textoParaData(this._inputData.value), 
-            this._inputQuantidade.value, 
-            this._inputValor.value);
+            parseInt(this._inputQuantidade.value), 
+            parseFloat(this._inputValor.value));
     }
 
     _limpaFormulario(){
