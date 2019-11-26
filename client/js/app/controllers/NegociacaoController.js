@@ -62,9 +62,22 @@ class NegociacaoController{
     }//fim adiciona
 
     apaga(){
+        ConnectionFactory
+        .getConnection()
+        .then(connection => {
+            new NegociacaoDao(connection)
+                .apagaTodos().then( message =>{
+                    this._mensagem.texto = message;
+                }).catch(erro =>{
+                    this._mensagem.texto = erro;
+                });
+        });
+
         this._listaNegociacoes.esvazia();
 
-        this._mensagem.texto = 'A lista foi apagada com sucesso!';
+        
+
+      //  this._mensagem.texto = 'A lista foi apagada com sucesso!';
         this._limpaFormulario();  
     }
 
@@ -87,6 +100,8 @@ class NegociacaoController{
   
        this._negociacaoService
        .obterNegociacoes()
+       .then(negociacoes => {negociacoes.filter(negociacao => 
+            this._listaNegociacoes.negociacoes.indexOf(negociacao) == -1)})
        .then(negociacoes => {
          negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
          this._mensagem.texto = 'Negociações do período importadas com sucesso';
