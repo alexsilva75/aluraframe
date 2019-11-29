@@ -8,7 +8,7 @@ import {Mensagem} from '../models/Mensagem.js';
 import {MensagemView} from '../views/MensagemView.js';
 import {NegociacoesView} from '../views/NegociacoesView.js';
 
-export class NegociacaoController{
+class NegociacaoController{
 
     constructor(){
         var $ = document.querySelector.bind(document);
@@ -141,3 +141,9 @@ export class NegociacaoController{
     }
 }//fim classe
 
+let negociacaoController = new NegociacaoController();
+export function currentInstance(){
+
+    return negociacaoController;
+
+}

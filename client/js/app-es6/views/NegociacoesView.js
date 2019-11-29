@@ -1,11 +1,18 @@
 import {View} from './View.js';
 import {DateHelper} from '../helpers/DateHelper.js';
+import { currentInstance } from '../controllers/NegociacaoController.js';
 export class NegociacoesView extends View{
 
 
     constructor(elemento){
 
         super(elemento);
+        elemento.addEventListener('click', function(event){
+
+            if(event.target.nodeName == 'th'){
+                currentInstance().ordena(event.target.textContent.toLowerCase());
+            }
+        });
 
     }
 
@@ -16,10 +23,10 @@ export class NegociacoesView extends View{
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th onclick="negociacaoController.ordena('data')">DATA</th>
-                        <th onclick="negociacaoController.ordena('quantidade')">QUANTIDADE</th>
-                        <th onclick="negociacaoController.ordena('valor')">VALOR</th>
-                        <th onclick="negociacaoController.ordena('volume')">VOLUME</th>
+                        <th>DATA</th>
+                        <th>QUANTIDADE</th>
+                        <th>VALOR</th>
+                        <th>VOLUME</th>
                     </tr>
                 </thead>
         
