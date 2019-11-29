@@ -1,5 +1,14 @@
+import {HttpService} from '../services/HttpService.js';
+import {NegociacaoService} from '../services/NegociacaoService.js';
+import {Bind} from '../helpers/Bind.js';
+import {DateHelper} from '../helpers/DateHelper.js';
+import {Negociacao} from '../models/Negociacao.js';
+import {ListaNegociacoes} from '../models/ListaNegociacoes.js';
+import {Mensagem} from '../models/Mensagem.js';
+import {MensagemView} from '../views/MensagemView.js';
+import {NegociacoesView} from '../views/NegociacoesView.js';
 
-class NegociacaoController{
+export class NegociacaoController{
 
     constructor(){
         var $ = document.querySelector.bind(document);
@@ -131,3 +140,4 @@ class NegociacaoController{
         this._ordemAtual = coluna;
     }
 }//fim classe
+

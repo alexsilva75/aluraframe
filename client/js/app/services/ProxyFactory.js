@@ -1,56 +1,89 @@
 "use strict";
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+System.register([], function (_export, _context) {
+    "use strict";
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+    var _typeof, _createClass, ProxyFactory;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ProxyFactory = function () {
-    function ProxyFactory() {
-        _classCallCheck(this, ProxyFactory);
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
     }
 
-    _createClass(ProxyFactory, null, [{
-        key: "create",
-        value: function create(objeto, props, acao) {
-            return new Proxy(objeto, {
-                get: function get(target, prop, receiver) {
-                    if (props.includes(prop) && ProxyFactory._ehFuncao(target[prop])) {
-                        return function () {
-                            console.log("Interceptando " + prop);
+    return {
+        setters: [],
+        execute: function () {
+            _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+                return typeof obj;
+            } : function (obj) {
+                return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+            };
 
-                            var retorno = Reflect.apply(target[prop], target, arguments);
-                            //self._negociacoesView.update(target);
-                            acao(target);
-                            return retorno;
-                        }; //fim function
-                    } //fim if
-
-                    return Reflect.get(target, prop, receiver);
-                } //fim get
-
-                ,
-                set: function set(target, prop, value, receiver) {
-                    var retorno = Reflect.set(target, prop, value, receiver);
-                    if (props.includes(prop)) {
-                        // target[prop] = value;
-                        acao(target);
+            _createClass = function () {
+                function defineProperties(target, props) {
+                    for (var i = 0; i < props.length; i++) {
+                        var descriptor = props[i];
+                        descriptor.enumerable = descriptor.enumerable || false;
+                        descriptor.configurable = true;
+                        if ("value" in descriptor) descriptor.writable = true;
+                        Object.defineProperty(target, descriptor.key, descriptor);
                     }
+                }
 
-                    return retorno; //Reflect.set(target,prop,value,receiver);
-                } //fim set
+                return function (Constructor, protoProps, staticProps) {
+                    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                    if (staticProps) defineProperties(Constructor, staticProps);
+                    return Constructor;
+                };
+            }();
 
-            });
-        } //fim create
+            _export("ProxyFactory", ProxyFactory = function () {
+                function ProxyFactory() {
+                    _classCallCheck(this, ProxyFactory);
+                }
 
-    }, {
-        key: "_ehFuncao",
-        value: function _ehFuncao(func) {
-            return (typeof func === "undefined" ? "undefined" : _typeof(func)) == (typeof Function === "undefined" ? "undefined" : _typeof(Function));
+                _createClass(ProxyFactory, null, [{
+                    key: "create",
+                    value: function create(objeto, props, acao) {
+                        return new Proxy(objeto, {
+                            get: function get(target, prop, receiver) {
+                                if (props.includes(prop) && ProxyFactory._ehFuncao(target[prop])) {
+                                    return function () {
+                                        console.log("Interceptando " + prop);
+
+                                        var retorno = Reflect.apply(target[prop], target, arguments);
+                                        //self._negociacoesView.update(target);
+                                        acao(target);
+                                        return retorno;
+                                    }; //fim function
+                                } //fim if
+
+                                return Reflect.get(target, prop, receiver);
+                            },
+                            set: function set(target, prop, value, receiver) {
+                                var retorno = Reflect.set(target, prop, value, receiver);
+                                if (props.includes(prop)) {
+                                    // target[prop] = value;
+                                    acao(target);
+                                }
+
+                                return retorno; //Reflect.set(target,prop,value,receiver);
+                            }
+                        });
+                    }
+                }, {
+                    key: "_ehFuncao",
+                    value: function _ehFuncao(func) {
+                        return (typeof func === "undefined" ? "undefined" : _typeof(func)) == (typeof Function === "undefined" ? "undefined" : _typeof(Function));
+                    }
+                }]);
+
+                return ProxyFactory;
+            }());
+
+            _export("ProxyFactory", ProxyFactory);
         }
-    }]);
-
-    return ProxyFactory;
-}();
+    };
+});
 //# sourceMappingURL=ProxyFactory.js.map

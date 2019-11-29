@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-theme.css">
 
-    <script src="js/app/polyfill/es6.js"></script>
+  <!--  <script src="js/app/polyfill/es6.js"></script>-->
     
 </head>
 <body class="container">
@@ -14,7 +14,7 @@
     <h1 class="text-center">Negociações</h1>
     <div id="mensagemView"></div>
     
-    <form class="form" onsubmit="negociacaoController.adiciona(event)">
+    <form class="form" >
         
         <div class="form-group">
             <label for="data">Data</label>
@@ -38,14 +38,16 @@
         <!--<button onclick="negociacaoController.importaNegociacoes()"class="btn btn-primary text-center" type="button">
             Importar Negociações
         </button>-->
-        <button onclick="negociacaoController.apaga()" class="btn btn-primary text-center" type="button">
+        <button  class="btn btn-primary text-center" type="button">
             Apagar
         </button>
     </div> 
     <br>
     <br>
     <div id="negociacoesView"></div>
-    <script src="js/app-es6/polyfill/fetch.js"></script>
+    <script src="node_modules/systemjs/dist/system.min.js"></script>
+    
+    <!--<script src="js/app-es6/polyfill/fetch.js"></script>
     <script src="js/app/helpers/DateHelper.js"></script>
     <script src="js/app/helpers/Bind.js"></script>
     <script src="js/app/models/Negociacao.js"></script>
@@ -60,10 +62,10 @@
     <script src="js/app/services/NegociacaoService.js"></script>
     <script src="js/app/services/ConnectionFactory.js"></script>
     <script src="js/app/controllers/NegociacaoController.js"></script>
-    <script src="js/app/dao/NegociacaoDao.js"></script>
+    <script src="js/app/dao/NegociacaoDao.js"></script>-->
     
-    <script>
-        let negociacaoController = new NegociacaoController();
+    <script type="module" src="js/app-es6/boot.js">
+        /*let negociacaoController = new NegociacaoController();
        
 
         let negociacao = new Proxy(new Negociacao(new Date(),50,70), {
@@ -73,8 +75,14 @@
             }
         });
 
-        console.log(negociacao);
+        console.log(negociacao);*/
+
+        /*System.defaultJSExtensions = true;
+        System.import('./js/app/boot.js').catch(function(err){
+            console.log(err);
+        });*/
 
     </script>
+  
 </body>
 </html>

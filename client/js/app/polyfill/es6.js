@@ -1,11 +1,20 @@
 'use strict';
 
-if (!Array.prototype.includes) {
+System.register([], function (_export, _context) {
+    "use strict";
 
-    console.log('Polyfill para Array.includes aplicado.');
+    return {
+        setters: [],
+        execute: function () {
+            if (!Array.prototype.includes) {
 
-    Array.prototype.includes = function (elemento) {
-        return this.indexOf(elemento) != -1;
+                console.log('Polyfill para Array.includes aplicado.');
+
+                Array.prototype.includes = function (elemento) {
+                    return this.indexOf(elemento) != -1;
+                };
+            }
+        }
     };
-}
+});
 //# sourceMappingURL=es6.js.map

@@ -1,4 +1,8 @@
-class NegociacaoService{
+import {ConnectionFactory} from './ConnectionFactory.js';
+import {NegociacaoDao} from '../dao/NegociacaoDao.js';
+import {Negociacao} from '../models/Negociacao.js';
+
+export class NegociacaoService{
 
         /**
                  * 0: requisicao ainda nao iniciada
